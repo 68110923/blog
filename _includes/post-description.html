@@ -1,0 +1,12 @@
+{%- comment -%}
+Override Chirpy's post-description: use Jekyll's built-in excerpt.
+This ensures card preview shows the beginning of the article content.
+{%- endcomment -%}
+
+{%- assign max_length = include.max_length | default: 200 -%}
+
+{%- if post.description -%}
+  {{- post.description | markdownify | strip_html | truncate: max_length | escape -}}
+{%- else -%}
+  {{- post.excerpt | strip_html | truncate: max_length | escape -}}
+{%- endif -%}

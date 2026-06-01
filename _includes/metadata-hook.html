@@ -1,7 +1,18 @@
+<!-- GitHub-style Markdown rendering -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-dark.min.css" media="(prefers-color-scheme: dark)">
+
 <!-- Highlight.js for syntax highlighting -->
-<!-- Light mode theme -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
-<!-- Dark mode theme -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
-<script>document.addEventListener('DOMContentLoaded', hljs.highlightAll);</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Apply GitHub markdown-body class to article content
+  document.querySelectorAll('article .content').forEach(function(el) {
+    el.classList.add('markdown-body');
+  });
+  // Syntax highlighting
+  hljs.highlightAll();
+});
+</script>
