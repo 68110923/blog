@@ -3,6 +3,7 @@ title: 关于
 icon: fas fa-info-circle
 order: 4
 permalink: /about/
+layout: page
 ---
 
 # 关于本站
