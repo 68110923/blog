@@ -1,5 +1,7 @@
 ---
-title: "关于"
+title: 关于
+icon: fas fa-info-circle
+order: 4
 permalink: /about/
 ---
 
@@ -11,5 +13,5 @@ permalink: /about/
 
 - **托管平台**: GitHub Pages
 - **静态站点生成器**: Jekyll
-- **主题**: Minimal Mistakes
+- **主题**: Chirpy
 - **评论系统**: Giscus（基于 GitHub Discussions）
