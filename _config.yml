@@ -81,7 +81,7 @@ paginate: 10
 # Markdown (CommonMark / GFM)
 # =====================
 markdown: CommonMark
-highlighter: rouge
+highlighter: none
 
 commonmark:
   options:
