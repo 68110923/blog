@@ -204,7 +204,6 @@
     var attr = document.documentElement.getAttribute('data-mode');
     if (attr === 'dark') return 'dark';
     if (attr === 'light') return 'light';
-    // 'dual' mode or any other value: follow system preference
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 
@@ -241,12 +240,10 @@
     });
   }
 
-  // Wait for DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       createUI();
       applyScheme(localStorage.getItem(STORAGE_KEY) || 'default');
-      // Re-apply on mode change
       var obs = new MutationObserver(function() {
         applyScheme(localStorage.getItem(STORAGE_KEY) || 'default');
       });
