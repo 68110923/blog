@@ -5,7 +5,7 @@
 
 # Theme Settings
 theme: minimal-mistakes-jekyll
-minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt",
+minimal_mistakes_skin: "neon" # "air", "aqua", "contrast", "dark", "dirt",
                                  # "neon", "mint", "plum", "sunrise",
                                  # "catppuccin_latte", "catppuccin_mocha"
 
@@ -43,7 +43,7 @@ comments:
 # Site Author
 author:
   name: "Aedda"
-  avatar: # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar: "/assets/images/avatar.svg"
   bio: "日常开发技巧记录"
   location:
   email:
