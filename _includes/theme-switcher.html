@@ -200,10 +200,17 @@
     document.body.appendChild(container);
   }
 
+  function getActualMode() {
+    var attr = document.documentElement.getAttribute('data-mode');
+    if (attr === 'dark') return 'dark';
+    if (attr === 'light') return 'light';
+    // 'dual' mode or any other value: follow system preference
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
   function applyScheme(name) {
     var html = document.documentElement;
-    var mode = html.getAttribute('data-mode') ||
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var mode = getActualMode();
     var scheme = schemes[name];
     if (!scheme) return;
     var vars = scheme[mode] || scheme.light || {};
