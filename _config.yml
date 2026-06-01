@@ -1,160 +1,114 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your entire site, values
-# which you are expected to set up once and rarely need to edit after that.
+# ===========================================================
+#  Chirpy Jekyll Theme Configuration
+# ===========================================================
 
-# Theme Settings
-theme: minimal-mistakes-jekyll
-minimal_mistakes_skin: "sunrise" # "default", "air", "aqua", "contrast", "dark", "dirt",
-                                 # "neon", "mint", "plum", "sunrise",
-                                 # "catppuccin_latte", "catppuccin_mocha"
+theme: jekyll-theme-chirpy
 
-# Site Settings
-locale: "zh-CN"
-title: "技巧博客"
-subtitle: "日常开发技巧记录"
-name: "Aedda"
-description: "日常开发技巧记录博客"
+lang: zh-CN
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+timezone: Asia/Shanghai
+
+title: 技巧博客
+tagline: 日常开发技巧记录
+description: 日常开发技巧记录博客
+
 url: "https://68110923.github.io"
 baseurl: "/blog"
-repository: "68110923/blog"
-breadcrumbs: true
-words_per_minute: 200
+github:
+  username: 68110923
 
-# Search
-search: true
-search_full_content: true
+avatar: "/assets/images/avatar.svg"
 
-# Comments
+# =====================
+# Theme Mode
+# =====================
+theme_mode: dual  # [dark|light|dual]
+# avatar: "/assets/images/avatar.svg"
+
+# =====================
+# Social
+# =====================
+social:
+  name: Aedda
+  links:
+    - https://github.com/68110923
+
+# =====================
+# Comments (Giscus)
+# =====================
 comments:
-  provider: "giscus"
+  active: giscus
   giscus:
-    repo_id: "R_kgDOStZc1w"
-    category_name: "Announcements"
-    category_id: "DIC_kwDOStZc184C-PrL"
-    discussion_term: "pathname"
-    reactions_enabled: "1"
-    theme: "preferred_color_scheme"
-    strict: "0"
-    input_position: "bottom"
-    lang: "zh-CN"
-    lazy: true
+    repo: 68110923/blog
+    repo_id: R_kgDOStZc1w
+    category: Announcements
+    category_id: DIC_kwDOStZc184C-PrL
+    mapping: pathname
+    strict: 0
+    input_position: bottom
+    lang: zh-CN
+    reactions_enabled: 1
 
-# Site Author
-author:
-  name: "Aedda"
-  avatar: "/assets/images/avatar.svg"
-  bio: "日常开发技巧记录"
-  location:
-  email:
-  links:
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/68110923"
+# =====================
+# Archives (Category & Tag pages)
+# =====================
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    category: /categories/:name/
+    tag: /tags/:name/
 
-# Site Footer
-footer:
-  links:
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/68110923"
+# =====================
+# Pagination
+# =====================
+paginate: 10
 
-# Reading Files
-include:
-  - _pages
+# =====================
+# SEO & Analytics
+# =====================
+# google_site_verification: your-verification-code
+
+# =====================
+# Markdown
+# =====================
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  auto_ids: true
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+# =====================
+# Plugins
+# =====================
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# =====================
+# Exclusions
+# =====================
 exclude:
+  - .idea
+  - .git
+  - .github
+  - .gitignore
   - vendor
-  - .bundle
-  - .sass-cache
-  - node_modules
+  - tools
+  - docs
+  - README.md
   - Gemfile
   - Gemfile.lock
   - package.json
   - package-lock.json
-  - Rakefile
-  - docs
-  - tools
-encoding: "utf-8"
-markdown_ext: "markdown,mkdown,mkdn,mkd,md"
-
-# Conversion
-markdown: kramdown
-highlighter: rouge
-excerpt_separator: "\n\n"
-incremental: false
-
-# Markdown Processing
-kramdown:
-  input: GFM
-  hard_wrap: false
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  smart_quotes: lsquo,rsquo,ldquo,rdquo
-  enable_coderay: false
-
-# Sass/SCSS
-sass:
-  sass_dir: _sass
-  style: compressed
-
-# Outputting
-permalink: /:categories/:title/
-timezone: Asia/Shanghai
-
-# Pagination
-paginate: 10
-paginate_path: /page:num/
-
-# Plugins
-plugins:
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-gist
-  - jekyll-feed
-  - jekyll-include-cache
-
-whitelist:
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-gist
-  - jekyll-feed
-  - jekyll-include-cache
-
-# Archives
-category_archive:
-  type: liquid
-  path: /categories/
-tag_archive:
-  type: liquid
-  path: /tags/
-
-# HTML Compression
-compress_html:
-  clippings: all
-  ignore:
-    envs: development
-
-# Defaults
-defaults:
-  # _posts
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: true
-      share: true
-      related: true
-      toc: true
-      toc_sticky: true
-  # _pages
-  - scope:
-      path: "_pages"
-      type: pages
-    values:
-      layout: single
-      author_profile: false
