@@ -12,9 +12,9 @@ collections:
     sort_by: order
 timezone: Asia/Shanghai
 
-title: 技巧博客
-tagline: 日常开发技巧记录
-description: 日常开发技巧记录博客
+title: Aedda
+tagline: 我是一只小鳄鱼
+description: 我是一只小鳄鱼
 
 url: "https://68110923.github.io"
 baseurl: "/blog"

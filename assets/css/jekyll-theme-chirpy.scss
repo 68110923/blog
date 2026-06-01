@@ -1,0 +1,34 @@
+---
+---
+
+@import 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* append your custom style below */
+
+/* ==================== */
+/* Fix: Code block formatting - preserve whitespace and line breaks */
+/* ==================== */
+
+.highlight code {
+  white-space: pre;
+}
+
+/* Better code block styling */
+.highlight {
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+/* Improve inline code appearance */
+p > code,
+li > code,
+td > code {
+  white-space: nowrap;
+  padding: 0.2em 0.4em;
+  font-size: 0.85em;
+  border-radius: 4px;
+}
