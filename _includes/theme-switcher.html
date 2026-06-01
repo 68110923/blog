@@ -72,8 +72,8 @@
 (function() {
   var SCHEME_KEY = 'user-scheme';
   var MODE_KEY = 'user-mode';
-  var userScheme = localStorage.getItem(SCHEME_KEY);  // null=auto, or scheme id
-  var userMode = localStorage.getItem(MODE_KEY);       // null=auto, or 'light'/'dark'
+  var userScheme = localStorage.getItem(SCHEME_KEY);  /* null=auto, or scheme id */
+  var userMode = localStorage.getItem(MODE_KEY);       /* null=auto, or 'light'/'dark' */
 
   var schemes = {
     default: { light: {}, dark: {} },
@@ -94,7 +94,7 @@
       dark:  { '--link-color': '#ff8a65', '--sidebar-bg': '#2d1f14', '--toc-highlight': '#ff8a65', '--tag-border': '#5c3a28', '--categories-icon-hover-color': '#ff8a65' }
     },
     night: {
-      light: {},  // night theme is primarily for dark mode
+      light: {},  /* night theme is primarily for dark mode */
       dark:  { '--link-color': '#bb86fc', '--sidebar-bg': '#1a1a2e', '--toc-highlight': '#bb86fc', '--tag-border': '#3d3d6b', '--categories-icon-hover-color': '#bb86fc', '--main-bg': '#121212', '--card-bg': '#1e1e2e', '--heading-color': '#e0e0e0', '--text-color': '#c0c0c0' }
     },
     aurora: {
@@ -113,7 +113,7 @@
     { id: 'aurora', label: '极光蓝', css: 'linear-gradient(135deg, #e8f4fd 50%, #0d2137 50%)' }
   ];
 
-  // --- helpers ---
+/* --- helpers --- */
 
   function getHour() { return new Date().getHours(); }
 
@@ -121,17 +121,17 @@
 
   function getActualMode() {
     if (userMode) return userMode;
-    // auto by time
+    /* auto by time */
     return isDaytime() ? 'light' : 'dark';
   }
 
   function getDefaultScheme() {
     if (userScheme) return userScheme;
-    // auto by time: day→warm, night→night
+    /* auto by time: day→warm, night→night */
     return isDaytime() ? 'warm' : 'night';
   }
 
-  // --- apply ---
+/* --- apply --- */
 
   function applyScheme(name, mode) {
     var html = document.documentElement;
@@ -139,7 +139,7 @@
     var scheme = schemes[name];
     if (!scheme) return;
 
-    // reset overrides
+    /* reset overrides */
     var allKeys = {};
     Object.keys(schemes).forEach(function(k) {
       ['light','dark'].forEach(function(mm) {
@@ -164,11 +164,11 @@
     var current = html.getAttribute('data-mode') || 'light';
     var next = (current === 'dark' || current === 'light') ? (current === 'dark' ? 'light' : 'dark') : (isDaytime() ? 'dark' : 'light');
     html.setAttribute('data-mode', next);
-    // user explicitly set mode → save
+    /* user explicitly set mode → save */
     userMode = next;
     localStorage.setItem(MODE_KEY, next);
     updateModeBtn(next);
-    // re-apply current scheme with new mode
+    /* re-apply current scheme with new mode */
     var curScheme = userScheme || getDefaultScheme();
     applyScheme(curScheme, next);
   }
@@ -198,14 +198,14 @@
     }
   }
 
-  // --- UI ---
+/* --- UI --- */
 
   function createUI() {
     var container = document.createElement('div');
     container.className = 'theme-ctrl';
     container.id = 'theme-ctrl';
 
-    // Mode toggle button (sun/moon)
+    /* Mode toggle button (sun/moon) */
     var modeBtn = document.createElement('button');
     modeBtn.className = 'theme-ctrl-btn';
     modeBtn.id = 'mode-toggle-btn';
@@ -217,7 +217,7 @@
       toggleMode();
     });
 
-    // Palette button
+    /* Palette button */
     var palBtn = document.createElement('button');
     palBtn.className = 'theme-ctrl-btn';
     palBtn.id = 'palette-btn';
@@ -247,7 +247,7 @@
       popup.appendChild(opt);
     });
 
-    // Auto mode hint
+    /* Auto mode hint */
     if (!userScheme && !userMode) {
       var hint = document.createElement('div');
       hint.className = 'mode-hint';
@@ -270,30 +270,30 @@
     document.body.appendChild(container);
   }
 
-  // --- init ---
+/* --- init --- */
 
   function init() {
     createUI();
 
-    // Determine initial settings
+    /* Determine initial settings */
     var initScheme = getDefaultScheme();
     var initMode = getActualMode();
 
-    // Apply mode to Chirpy
+    /* Apply mode to Chirpy */
     var html = document.documentElement;
     if (!userMode) {
-      // Auto mode: set data-mode based on time
+      /* Auto mode: set data-mode based on time */
       html.setAttribute('data-mode', initMode);
     }
 
     applyScheme(initScheme, initMode);
     updateModeBtn(initMode);
 
-    // Observe Chirpy's built-in mode toggle (if user clicks sidebar toggle)
+    /* Observe Chirpy built-in mode toggle */
     var obs = new MutationObserver(function() {
       var m = html.getAttribute('data-mode');
       if (m === 'dark' || m === 'light') {
-        // User used sidebar toggle → save preference
+        /* User used sidebar toggle → save preference */
         if (!userMode) {
           userMode = m;
           localStorage.setItem(MODE_KEY, m);
