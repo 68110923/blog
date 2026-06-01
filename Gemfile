@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem "jekyll-theme-chirpy"
+gem "jekyll-commonmark"
 
 gem "html-proofer", "~> 5.0", group: :test
 

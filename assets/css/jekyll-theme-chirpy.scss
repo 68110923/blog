@@ -10,17 +10,24 @@
 /* append your custom style below */
 
 /* ==================== */
-/* Fix: Code block formatting - preserve whitespace and line breaks */
+/* Code block styling (CommonMark / GFM output) */
 /* ==================== */
 
-.highlight code {
+/* CommonMark outputs <pre><code class="language-xxx"> */
+pre code {
   white-space: pre;
 }
 
-/* Better code block styling */
-.highlight {
+pre {
   border-radius: 0.5rem;
   overflow-x: auto;
+  padding: 1rem;
+  background: var(--highlight-bg, #f6f8fa);
+}
+
+/* Dark mode adjustments */
+[data-mode="dark"] pre {
+  background: var(--highlight-bg, #161b22);
 }
 
 /* Improve inline code appearance */

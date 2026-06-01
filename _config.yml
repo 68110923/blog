@@ -78,15 +78,19 @@ paginate: 10
 # google_site_verification: your-verification-code
 
 # =====================
-# Markdown
+# Markdown (CommonMark / GFM)
 # =====================
-markdown: kramdown
+markdown: CommonMark
 highlighter: rouge
-kramdown:
-  input: GFM
-  auto_ids: true
-  hard_wrap: false
-  syntax_highlighter: rouge
+
+commonmark:
+  options:
+    - DEFAULT
+  extensions:
+    - strikethrough
+    - autolink
+    - table
+    - tagfilter
 
 # =====================
 # Plugins
@@ -106,6 +110,7 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-commonmark
 
 # =====================
 # Exclusions
