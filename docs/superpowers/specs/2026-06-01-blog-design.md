@@ -92,7 +92,7 @@ defaults:
       toc: true
 
 comments:
-  provider: giscus
+  provider: giscus          # Chirpy 7.5 uses 'provider', NOT 'active'
   giscus:
     repo: <用户名>/blog
     repo_id: <由giscus.app生成>

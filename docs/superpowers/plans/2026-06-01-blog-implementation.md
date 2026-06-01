@@ -141,7 +141,7 @@ defaults:
 
 # 评论 — Giscus，repo_id 和 category_id 后续替换
 comments:
-  active: giscus
+  provider: giscus    # ⚠️ 注意：Chirpy v7.5 使用 provider，不是 active！
   giscus:
     repo: 68110923/blog
     repo_id: GET_FROM_GISCUS_APP
