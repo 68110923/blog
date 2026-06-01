@@ -41,7 +41,7 @@ social:
 # Comments (Giscus)
 # =====================
 comments:
-  active: giscus
+  provider: giscus
   giscus:
     repo: 68110923/blog
     repo_id: R_kgDOStZc1w
