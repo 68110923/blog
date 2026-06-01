@@ -21,7 +21,7 @@ baseurl: "/blog"
 github:
   username: 68110923
 
-avatar: "/assets/images/avatar.svg"
+avatar: "https://github.com/68110923.png"
 
 # =====================
 # Theme Mode
@@ -91,6 +91,17 @@ kramdown:
 # =====================
 # Plugins
 # =====================
+# =====================
+# Default Front Matter
+# =====================
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: true
+
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
