@@ -1,12 +1,12 @@
 # 技巧博客
 
-日常开发技巧记录博客，基于 GitHub Pages + Jekyll + Chirpy 主题搭建。
+日常开发技巧记录博客，基于 GitHub Pages + Jekyll + Minimal Mistakes 主题搭建。
 
 ## 技术栈
 
 - **托管平台**: GitHub Pages
 - **静态站点生成器**: Jekyll
-- **主题**: Chirpy
+- **主题**: Minimal Mistakes（可切换 18 套配色皮肤）
 - **评论系统**: Giscus（基于 GitHub Discussions）
 
 ## 本地开发
