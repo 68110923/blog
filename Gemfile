@@ -2,6 +2,8 @@ source "https://rubygems.org"
 
 gem "jekyll-theme-chirpy"
 
+gem "html-proofer", "~> 5.0", group: :test
+
 gem "webrick", "~> 1.7"
 
 platforms :windows, :jruby do
