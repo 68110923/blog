@@ -5,7 +5,7 @@
 
 # Theme Settings
 theme: minimal-mistakes-jekyll
-minimal_mistakes_skin: "neon" # "air", "aqua", "contrast", "dark", "dirt",
+minimal_mistakes_skin: "sunrise" # "default", "air", "aqua", "contrast", "dark", "dirt",
                                  # "neon", "mint", "plum", "sunrise",
                                  # "catppuccin_latte", "catppuccin_mocha"
 
