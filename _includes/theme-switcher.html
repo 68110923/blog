@@ -69,11 +69,49 @@
 </style>
 
 <script>
+/* --- IMMEDIATE: apply saved scheme before page renders (no FOUC) --- */
 (function() {
   var SCHEME_KEY = 'user-scheme';
   var MODE_KEY = 'user-mode';
-  var userScheme = localStorage.getItem(SCHEME_KEY);  /* null=auto, or scheme id */
-  var userMode = localStorage.getItem(MODE_KEY);       /* null=auto, or 'light'/'dark' */
+  /* userScheme / userMode initialized here, used by delayed init below */
+  var userScheme = localStorage.getItem(SCHEME_KEY);
+  var userMode = localStorage.getItem(MODE_KEY);
+  if (userMode === 'light' || userMode === 'dark') {
+    document.documentElement.setAttribute('data-mode', userMode);
+  }
+  /* Check if this is a fresh visit with no saved preferences */
+  var isFresh = !userMode && !userScheme;
+
+  (function preApply() {
+    var hour = new Date().getHours();
+    var day = hour >= 8 && hour < 18;
+    var mode = userMode || (day ? 'light' : 'dark');
+    if (!userMode) {
+      document.documentElement.setAttribute('data-mode', mode);
+    }
+    var schemeId = userScheme || (day ? 'warm' : 'night');
+    if (schemeId === 'default') return;
+    /* Minimal scheme definitions for pre-apply */
+    var vars = {
+      forest: { light: {'--link-color':'#2d8a4e','--sidebar-bg':'#f0f7f0','--toc-highlight':'#2d8a4e','--tag-border':'#c8e6c9'}, dark: {'--link-color':'#4caf50','--sidebar-bg':'#1b2e1b','--toc-highlight':'#4caf50','--tag-border':'#2e4f2e'} },
+      purple: { light: {'--link-color':'#6c5ce7','--sidebar-bg':'#f5f0ff','--toc-highlight':'#6c5ce7','--tag-border':'#d5ccf0'}, dark: {'--link-color':'#a29bfe','--sidebar-bg':'#1a1a2e','--toc-highlight':'#a29bfe','--tag-border':'#3d3d6b'} },
+      ocean:  { light: {'--link-color':'#0066cc','--sidebar-bg':'#e8f4fd','--toc-highlight':'#0066cc','--tag-border':'#b8d4e8'}, dark: {'--link-color':'#4dabf7','--sidebar-bg':'#0d2137','--toc-highlight':'#4dabf7','--tag-border':'#1a3a5c'} },
+      warm:   { light: {'--link-color':'#e17055','--sidebar-bg':'#fdf6f0','--toc-highlight':'#e17055','--tag-border':'#f0d5c8'}, dark: {'--link-color':'#ff8a65','--sidebar-bg':'#2d1f14','--toc-highlight':'#ff8a65','--tag-border':'#5c3a28'} },
+      night:  { dark:  {'--link-color':'#bb86fc','--sidebar-bg':'#1a1a2e','--toc-highlight':'#bb86fc','--tag-border':'#3d3d6b','--main-bg':'#121212','--card-bg':'#1e1e2e','--heading-color':'#e0e0e0','--text-color':'#c0c0c0'} },
+      aurora: { dark:  {'--link-color':'#00bcd4','--sidebar-bg':'#0d2137','--toc-highlight':'#00bcd4','--tag-border':'#004d60','--main-bg':'#0a1929','--card-bg':'#0d2137','--heading-color':'#e0e0e0','--text-color':'#b0bec5'} }
+    };
+    var s = vars[schemeId];
+    if (!s) return;
+    var c = s[mode] || s.light || {};
+    var html = document.documentElement;
+    Object.keys(c).forEach(function(k) { html.style.setProperty(k, c[k]); });
+    html.setAttribute('data-color-scheme', schemeId);
+  })();
+
+  /* Store fresh flag for use in delayed init */
+  var _fresh = isFresh;
+
+  /* --- DELAYED: create UI, observer, etc. (runs on DOMContentLoaded) --- */
 
   var schemes = {
     default: { light: {}, dark: {} },
@@ -272,28 +310,34 @@
 
 /* --- init --- */
 
+  var initializing = true;
+  /* Flag to prevent MutationObserver from re-applying during init */
+
   function init() {
     createUI();
 
-    /* Determine initial settings */
     var initScheme = getDefaultScheme();
     var initMode = getActualMode();
-
-    /* Apply mode to Chirpy */
     var html = document.documentElement;
-    if (!userMode) {
-      /* Auto mode: set data-mode based on time */
-      html.setAttribute('data-mode', initMode);
-    }
 
+    /* Apply scheme BEFORE setting data-mode to avoid observer race */
     applyScheme(initScheme, initMode);
     updateModeBtn(initMode);
 
-    /* Observe Chirpy built-in mode toggle */
+    if (!userMode) {
+      html.setAttribute('data-mode', initMode);
+    }
+
+    /* Let observer fire after our init is fully settled */
+    setTimeout(function() {
+      initializing = false;
+    }, 0);
+
+    /* Observe Chirpy built-in mode toggle (sidebar button) */
     var obs = new MutationObserver(function() {
+      if (initializing) return;
       var m = html.getAttribute('data-mode');
       if (m === 'dark' || m === 'light') {
-        /* User used sidebar toggle → save preference */
         if (!userMode) {
           userMode = m;
           localStorage.setItem(MODE_KEY, m);
